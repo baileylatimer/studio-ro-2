@@ -36,7 +36,7 @@ export default function Book() {
   const { siteSettings, classes, error } = useLoaderData<typeof loader>();
 
   return (
-    <Layout contactInfo={siteSettings?.contactInfo}>
+    <Layout>
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="marquee-container relative overflow-hidden h-20 bg-contrast mb-8">
