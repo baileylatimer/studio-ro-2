@@ -9,7 +9,7 @@ export default function Header({ siteTitle = "STUDIO–RO®" }: HeaderProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <nav className="grid grid-cols-5 md:grid-cols-3 py-3 lg:p-6 mx-d mb-6 bg-background border border-contrast rounded-xl fixed w-[calc(100vw-80px)] z-50 top-0 mx-4">
+    <nav className="grid grid-cols-5 md:grid-cols-3 py-3 lg:p-6 mx-d mb-6 bg-background border border-contrast rounded-xl fixed w-[calc(100vw-80px)] z-50 top-4 mx-4">
       <div className="flex items-center text-white px-d col-span-3 lg:col-span-1">
         <Link to="/" className="mb-0 nav-title">
           <svg className="nav-logo" width="242" height="31" viewBox="0 0 242 31" fill="none" xmlns="http://www.w3.org/2000/svg">

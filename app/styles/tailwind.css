@@ -30,7 +30,7 @@
 :root {
   --color-contrast-higher: #000;
   --color-bg: #DFDFDF;
-  --font-base: 20px;
+  --font-base: 16px;
   --text-lg: 64px;
   --text-md: 49px;
   --font-primary: "Neue Montreal", sans-serif;
@@ -38,7 +38,7 @@
 
 @media(max-width:1520px) {
   :root {
-    --font-base: 16px;
+    --font-base: 14px;
     --text-lg: 52px;
     --text-md: 34px;
   }
@@ -57,8 +57,14 @@
     @apply bg-background;
   }
   
-  h1, h2, h3, h4, h5, h6, a, li, p, span {
+  h1, h2, h3, h4, h5, h6, li, span {
     font-family: var(--font-primary);
+    text-transform: uppercase;
+    color: var(--color-contrast-higher);
+  }
+  
+  p, a {
+    font-family: 'PPSupplyMono-Regular';
     text-transform: uppercase;
     color: var(--color-contrast-higher);
   }
