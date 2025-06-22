@@ -1,78 +1,84 @@
 import type { MetaFunction, LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import type { Project } from "~/types/sanity";
+import Layout from "~/components/Layout";
+import Hero from "~/components/Hero";
+import HomeAbout from "~/components/HomeAbout";
+import ProjectCard from "~/components/ProjectCard";
+import { getSiteSettings, getAllShowreelVideos } from "~/lib/sanity";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Your Project Name" },
-    { name: "description", content: "Welcome to your Remix with Sanity integration!" },
+    { title: "STUDIO–RO® | Dance Practice by Rocio Colomer Jorda" },
+    { name: "description", content: "STUDIO–RO is an award-winning dance practice founded by Rocio Colomer Jorda working across a mix of disciplines that includes Heels & Hip Hop." },
   ];
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async () => {
   try {
-    const response = await fetch(request.url.replace(/\/?$/, '/api/sanity'));
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const projects = await response.json();
-    return { projects, error: null };
+    // Fetch site settings and featured showreel videos
+    const [siteSettings, showreelVideos] = await Promise.all([
+      getSiteSettings(),
+      getAllShowreelVideos()
+    ]);
+
+    // Get the first two videos for the homepage
+    const featuredVideos = showreelVideos.slice(0, 2);
+
+    // Debug log to check if new fields are being fetched
+    console.log('Site Settings:', siteSettings);
+
+    return { 
+      siteSettings, 
+      featuredVideos,
+      error: null 
+    };
   } catch (error: unknown) {
-    console.error('Error fetching projects:', error);
-    return { projects: [], error: (error as Error).message || 'Failed to fetch projects' };
+    console.error('Error fetching data:', error);
+    return { 
+      siteSettings: null, 
+      featuredVideos: [],
+      error: (error as Error).message || 'Failed to fetch data' 
+    };
   }
 };
 
 export default function Index() {
-  const { projects, error } = useLoaderData<typeof loader>();
+  const { siteSettings, featuredVideos, error } = useLoaderData<typeof loader>();
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">Welcome to Your Project</h1>
-      {error && <p className="text-red-500 mb-4">Error: {error}</p>}
-      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project: Project) => (
-          <li key={project._id} className="bg-white shadow-md rounded-lg p-6">
-            <h2 className="text-2xl font-semibold mb-2">{project.title}</h2>
-            <p className="text-gray-600">{project.excerpt}</p>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-12">
-        <h2 className="text-2xl font-bold mb-4">Useful Links</h2>
-        <ul className="space-y-2">
-          <li>
-            <a
-              className="text-blue-500 hover:underline"
-              target="_blank"
-              href="https://remix.run/tutorials/blog"
-              rel="noreferrer"
-            >
-              15m Quickstart Blog Tutorial
-            </a>
-          </li>
-          <li>
-            <a
-              className="text-blue-500 hover:underline"
-              target="_blank"
-              href="https://remix.run/tutorials/jokes"
-              rel="noreferrer"
-            >
-              Deep Dive Jokes App Tutorial
-            </a>
-          </li>
-          <li>
-            <a 
-              className="text-blue-500 hover:underline"
-              target="_blank" 
-              href="https://remix.run/docs" 
-              rel="noreferrer"
-            >
-              Remix Docs
-            </a>
-          </li>
-        </ul>
+    <Layout contactInfo={siteSettings?.contactInfo}>
+      {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong className="font-bold">Error:</strong>
+        <span className="block sm:inline"> {error}</span>
+      </div>}
+      
+        <Hero 
+          videoUrl={siteSettings?.heroVideo?.asset?.url}
+          description={siteSettings?.heroDescription?.en}
+          text1={siteSettings?.heroText1}
+          text2={siteSettings?.heroText2}
+        />
+      
+      <HomeAbout description={siteSettings?.homeAboutDescription?.en} />
+      
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col lg:flex-row lg:mt-20">
+          {featuredVideos.map((video: any) => (
+            <ProjectCard
+              key={video._id}
+              title={video.title}
+              description={video.description}
+              coverVideo={video.coverVideo?.asset?.url}
+              mainVideo={video.mainVideo?.asset?.url}
+              videoTitle={video.videoTitle}
+              tag={video.tag}
+              teacher={video.teacher}
+              location={video.location}
+              link={`/showreel/${video.tag}`}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }

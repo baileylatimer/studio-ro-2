@@ -1,221 +1,185 @@
-# Remix + Netlify + Sanity + Tailwind Starter Template
+# STUDIO–RO® Website
 
-A ready-to-use starter template that combines Remix, Netlify, Sanity CMS, and Tailwind CSS for rapid web application development.
+A modern dance practice website built with Remix, Sanity CMS, and Tailwind CSS. This is a rebuild of the original Gatsby site with enhanced features for class booking and content management.
 
-## Prerequisites
+## Tech Stack
 
-Before you begin, ensure you have installed:
+- **Frontend Framework**: Remix
+- **CMS**: Sanity
+- **Styling**: Tailwind CSS
+- **Animations**: GSAP (ready to implement)
+- **Hosting**: Netlify
+- **Future Integrations**: Stripe (payments), Instagram automation
 
-- [Node.js](https://nodejs.org/) (version 16 or higher)
-- [VS Code](https://code.visualstudio.com/) (recommended editor)
-- [Git](https://git-scm.com/)
-
-## COPY AND PASTE THIS INTO CLINE FOR STARTING PROMPT
+## Project Structure
 
 ```
-I want to set up a new project using the Remix-Netlify-Sanity-Tailwind starter. I'll need help with:
-1. Setting up the project and installing dependencies
-2. Configuring Sanity with my project details
-3. Setting up Git for version control
-4. Deploying to Netlify
+studio-ro-2/
+├── app/                    # Remix application
+│   ├── components/        # React components
+│   ├── routes/           # Page routes
+│   ├── styles/           # CSS files
+│   ├── lib/              # Utility functions
+│   └── fonts/            # Custom fonts
+├── sanity-studio/        # Sanity CMS studio
+│   └── schemas/          # Content schemas
+├── public/               # Static assets
+└── build/               # Production build (generated)
 ```
 
+## Features
 
-## EXAMPLE MESSAGE FOR CLINE ONCE YOU GET RUNNING
-```
-Ok create a new component called process that’s populated by sanity. It should have 3 cards that stack on mobile.
+### Current Features
+- ✅ Responsive design matching original site aesthetic
+- ✅ Hero video section with overlay text
+- ✅ Showreel gallery with video previews
+- ✅ About page with image and text content
+- ✅ Contact page with phone/email links
+- ✅ Multi-language support (English/Spanish ready)
+- ✅ Sanity CMS for content management
 
-there should be an image upload field for the icons, an h2 (title), and p (description). 
+### Future Features (Ready to Implement)
+- 📲 Instagram integration for class announcements
+- 💳 Stripe payment integration for class bookings
+- 📧 Email confirmations for bookings
+- 📅 Class scheduling system
+- 🎯 Landing page at `/book` for Instagram traffic
 
-there should be an hr in between the title and description.
+## Setup Instructions
 
-the first card should have the colors inverted with the background as our primary color.
+### 1. Clone and Install
 
-here’s the primary color if you want to create a variable #17283D.
+```bash
+# Clone the repository
+git clone [repository-url]
+cd studio-ro-2
 
-see the mockup attached.
-```
-
-
-## Getting Started
-
-### Clone the Repository
-
-1. Open your terminal and run:
-
-```sh
-git clone https://github.com/your-username/remix-netlify-sanity-tailwind-starter.git my-project
-cd my-project
-```
-
-2. Delete the existing Git repository and initialize a new one:
-
-```sh
-rm -rf .git
-git init
-git add .
-git commit -m "Initial commit"
-```
-
-3. Create a new repository on GitHub, then connect your local repository:
-
-```sh
-git remote add origin https://github.com/your-username/your-repo-name.git
-git push -u origin main
-```
-
-### Install Dependencies
-
-```sh
+# Install dependencies
 npm install
 ```
 
-### Configure Environment Variables
+### 2. Environment Variables
 
-1. Update the `.env` file with your Sanity project information:
+Create a `.env` file based on `.env.example`:
 
-```
-SANITY_PROJECT_ID=YOUR_SANITY_PROJECT_ID
-SANITY_DATASET=YOUR_SANITY_DATASET
-```
-
-You'll replace these values with those from your Sanity project in the next steps.
-
-## Setting Up Sanity
-
-### Create a New Sanity Project
-
-1. Install the Sanity CLI globally:
-
-```sh
-npm install -g @sanity/cli
+```bash
+cp .env.example .env
 ```
 
-2. Create a new Sanity project:
+Required variables:
+- `SANITY_PROJECT_ID`: Your Sanity project ID
+- `SANITY_DATASET`: Usually "production"
 
-```sh
-sanity login
-sanity init
-```
+### 3. Sanity Setup
 
-3. During initialization:
-   - Select "Create new project"
-   - Enter a project name
-   - Use the default dataset configuration
-   - Choose "Clean project with no predefined schemas" as your template
-
-4. After initialization, note your Project ID from the console output or find it in the Sanity management console at [https://www.sanity.io/manage](https://www.sanity.io/manage).
-
-### Update Configuration Files
-
-Update the following files with your Sanity Project ID and dataset name:
-
-1. `.env`
-2. `sanity-studio/sanity.config.ts`
-3. `sanity-studio/sanity.cli.ts`
-4. `studio/sanity.config.ts`
-5. `studio/sanity.cli.ts`
-
-Replace `YOUR_SANITY_PROJECT_ID` with your actual Sanity Project ID and `YOUR_SANITY_DATASET` with your dataset name (usually "production").
-
-## Running Your Project
-
-### Start Sanity Studio
-
-Open a terminal and run:
-
-```sh
+```bash
+# Navigate to Sanity studio
 cd sanity-studio
-npm install
+
+# Install Sanity CLI globally (if not already installed)
+npm install -g @sanity/cli
+
+# Initialize Sanity (if new project)
+sanity init
+
+# Deploy Sanity Studio
+sanity deploy
+```
+
+### 4. Run Development Server
+
+```bash
+# From root directory
 npm run dev
 ```
 
-This will start Sanity Studio on [http://localhost:3333](http://localhost:3333)
+The site will be available at `http://localhost:3000`
 
-### Start Remix Development Server
+### 5. Deploy to Netlify
 
-Open another terminal window and from the project root run:
+```bash
+# Build the project
+npm run build
 
-```sh
-npm run dev
+# Deploy to Netlify
+netlify deploy --prod
 ```
 
-This will start your Remix app on [http://localhost:3000](http://localhost:3000)
+## Content Management
 
-## VS Code Tips
+### Accessing Sanity Studio
 
-1. Install recommended extensions:
-   - ESLint
-   - Prettier
-   - Tailwind CSS IntelliSense
-   - ES7+ React/Redux/React-Native snippets
+1. Local: Run `npm run sanity` and visit `http://localhost:3333`
+2. Deployed: Visit `https://[your-project-name].sanity.studio`
 
-2. Use the integrated terminal in VS Code to run commands:
-   - Open Terminal menu > New Terminal
-   - Run commands directly in the terminal panel
+### Content Types
 
-3. Split terminals to run both Sanity and Remix servers simultaneously:
-   - Click the Split Terminal button in the terminal panel
-   - Run Sanity in one terminal and Remix in the other
+1. **Site Settings**
+   - Hero video and description
+   - About page content
+   - Contact information
+   - Social media links
 
-## Deploying to Netlify
+2. **Showreel Videos**
+   - Title and description
+   - Cover video (preview)
+   - Main video
+   - Tags (heels, commercial)
+   - Teacher and location info
 
-### Option 1: Deploy from Git
+3. **Classes** (for future booking system)
+   - Class details
+   - Schedule
+   - Pricing
+   - Instructor info
 
-1. Push your code to GitHub, GitLab, or Bitbucket
-2. Log in to [Netlify](https://www.netlify.com/)
-3. Click "Add new site" > "Import an existing project"
-4. Choose your Git provider and select your repository
-5. Configure build settings:
-   - Build command: `npm run build`
-   - Publish directory: `public`
-6. Click "Deploy site"
-7. In site settings, add your environment variables:
-   - SANITY_PROJECT_ID
-   - SANITY_DATASET
+## Instagram Integration Flow
 
-### Option 2: Deploy using Netlify CLI
+The site is prepared for Instagram-driven class bookings:
 
-1. Install the Netlify CLI:
+1. Post on Instagram with call-to-action
+2. Auto-DM sends link to `rocio.dance/book`
+3. User lands on booking page
+4. Selects class date/time
+5. Pays via Stripe
+6. Receives email confirmation
 
-```sh
-npm install -g netlify-cli
+## Development Notes
+
+### Adding New Routes
+
+Create new files in `app/routes/`:
+```typescript
+// app/routes/new-page.tsx
+export default function NewPage() {
+  return <Layout>...</Layout>
+}
 ```
 
-2. Log in to Netlify:
+### Modifying Styles
 
-```sh
-netlify login
-```
+- Global styles: `app/styles/tailwind.css`
+- Component styles: Use Tailwind utility classes
+- Custom animations: Ready for GSAP integration
 
-3. Connect to your Netlify site:
+### Working with Sanity
 
-```sh
-netlify init
-```
-
-4. Deploy your site:
-
-```sh
-netlify deploy --build --prod
-```
-
-## Next Steps
-
-1. Customize the content schemas in the `sanity-studio/schemas` directory
-2. Modify the Remix routes in the `app/routes` directory
-3. Customize the Tailwind configuration in `tailwind.config.js`
-4. Update the site title and metadata in `app/routes/_index.tsx`
+1. Add new schemas in `sanity-studio/schemas/`
+2. Import in `sanity-studio/schemas/index.ts`
+3. Deploy schema changes: `sanity deploy`
 
 ## Troubleshooting
 
-- **Sanity Connection Issues**: Ensure your Project ID and dataset name are correct in all configuration files
-- **Build Errors**: Check that all dependencies are installed with `npm install`
-- **Deployment Issues**: Verify environment variables are correctly set in Netlify
+### Common Issues
 
-## Resources
+1. **TypeScript errors**: Run `npm install` to ensure all dependencies are installed
+2. **Sanity connection**: Check environment variables are set correctly
+3. **Build errors**: Clear cache with `rm -rf .cache build`
 
-- [Remix Documentation](https://remix.run/docs)
-- [Sanity Documentation](https://www.sanity.io/docs)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [Netlify Documentation](https://docs.netlify.com/)
+### Support
+
+For issues or questions, please contact the development team.
+
+## License
+
+© 2024 STUDIO–RO®. All rights reserved.

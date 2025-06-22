@@ -1,3 +1,268 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./fonts/NeueMontreal-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./fonts/PPNeueCorp-ExtendedUltrabold.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: "PPSupplyMono-Regular";
+  src: url("./fonts/PPSupplyMono-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-contrast-higher: #000;
+  --color-bg: #DFDFDF;
+  --font-base: 20px;
+  --text-lg: 64px;
+  --text-md: 49px;
+  --font-primary: "Neue Montreal", sans-serif;
+}
+
+@media(max-width:1520px) {
+  :root {
+    --font-base: 16px;
+    --text-lg: 52px;
+    --text-md: 34px;
+  }
+}
+
+@media(max-width:1023px) {
+  :root {
+    --font-base: 13px;
+    --text-lg: 42px;
+    --text-md: 26px;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background;
+  }
+  
+  h1, h2, h3, h4, h5, h6, a, li, p, span {
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    color: var(--color-contrast-higher);
+  }
+  
+  h1 {
+    font-size: var(--text-md);
+  }
+  
+  h2 {
+    font-size: 40px;
+    line-height: 40px;
+  }
+  
+  a {
+    font-size: var(--font-base);
+  }
+  
+  p {
+    font-size: var(--font-base);
+  }
+}
+
+@layer components {
+  .bg-background {
+    background-color: var(--color-bg);
+  }
+  
+  .text-white {
+    color: var(--color-bg);
+  }
+  
+  .font-base {
+    font-size: var(--font-base);
+  }
+  
+  .text-xxl {
+    font-size: 182px;
+  }
+  
+  .text-lg {
+    font-size: var(--text-lg);
+  }
+  
+  .text-alt {
+    font-family: 'PPSupplyMono-Regular';
+    font-size: 14px;
+  }
+  
+  /* Buttons */
+  .btn {
+    font-size: var(--text-md);
+    border-radius: 2.625rem;
+    padding: .25rem .8125rem .1875rem;
+    background-color: var(--color-contrast-higher);
+  }
+  
+  .btn a {
+    color: var(--color-bg);
+    font-size: var(--text-md);
+  }
+  
+  .btn--ghost {
+    border: 1px solid var(--color-contrast-higher);
+    background-color: transparent;
+  }
+  
+  .btn--ghost a {
+    color: var(--color-contrast-higher);
+  }
+}
+
+@media(max-width:1023px) {
+  h2 {
+    font-size: 28px;
+    line-height: 28px;
+  }
+  
+  .text-xxl {
+    font-size: 72px;
+    line-height: 70px;
+  }
+  
+  @media(min-width:1023px) {
+    .btn {
+      padding: 0 1.2rem 0;
+    }
+    
+    .hidden-lg {
+      display: none;
+    }
+  }
+}
+
+@media(max-width:1520px) {
+  .text-xxl {
+    font-size: 200px;
+  }
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee {
+  animation: marquee 10s linear infinite;
+}
+
+.marquee2 {
+  animation-delay: 5s;
+}
+
+/* Video Overlay */
+.overlay-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.overlay-bottom {
+  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+}
+
+/* Navigation */
+.nav-logo {
+  height: 30px;
+  width: auto;
+}
+
+@media(max-width:1023px) {
+.nav-open {
+  border-top: 1px solid var(--color-contrast-higher);
+}
+}
+/* Project Card */
+.project-card {
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Play Button */
+.play-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.7);
+  transition: opacity 0.3s ease;
+}
+
+/* Text Indent */
+.text-indent {
+  padding-left: 2em;
+}
+
+.text-indent p {
+  text-align: justify;
+}
+
+/* Blurb SVG */
+.blurb__svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Contact Banner */
+.contact-banner {
+  border-radius: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .marquee-container h1 {
+    font-size: 2rem;
+  }
+  
+  .video-container {
+    padding-bottom: 75%; /* Adjust aspect ratio for mobile */
+  }
+}
