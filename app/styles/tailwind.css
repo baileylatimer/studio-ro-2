@@ -244,11 +244,15 @@
 
 /* Text Indent */
 .text-indent {
-  padding-left: 2em;
+  text-indent: 3.3rem;
+  position: relative;
 }
 
-.text-indent p {
-  text-align: justify;
+@media(max-width:1023px) {
+  .text-indent {
+    text-indent: 2.3rem;
+    position: relative;
+  }
 }
 
 /* Blurb SVG */
@@ -305,8 +309,16 @@
 
 .logo {
   width: 100%;
-  /* max-width: 1508px; */
-  height: auto;
   position: absolute;
-  bottom: 0
+  bottom: 0;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+/* HOME ABOUT 
+============== */
+.home-about .content {
+  max-width: 700px;
+  position: relative;
 }
