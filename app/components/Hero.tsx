@@ -35,7 +35,7 @@ export default function Hero({ videoUrl, description }: HeroProps) {
 
 
 <div className="absolute top-[90px] left-0 w-full px-[40px]">
-          <h1 className="text-white whitespace-nowrap" style={{ fontSize: 'calc(100vw / 9.5)', fontFamily: '"PP Neue Corp"' }}>
+          <h1 id="hero-logo" className="text-white whitespace-nowrap hero-logo" style={{ fontSize: 'calc(100vw / 9.5)', fontFamily: '"PP Neue Corp"' }}>
             STUDIO–RO<span className="text-white" style={{ fontSize: '0.5em', verticalAlign: 'super' }}>©</span>
           </h1>
         </div>
