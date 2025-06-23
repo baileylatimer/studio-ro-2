@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useLocale } from "~/contexts/LocaleContext";
 
 export default function LanguageSwitcher() {
-  const [currentLocale, setCurrentLocale] = useState("en");
+  const { locale: currentLocale, setLocale } = useLocale();
 
   const changeLocale = (locale: string) => {
-    setCurrentLocale(locale);
-    // TODO: Implement actual locale change logic with Remix i18n
+    setLocale(locale);
   };
 
   return (

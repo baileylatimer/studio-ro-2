@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { LocaleProvider } from "~/contexts/LocaleContext";
 
 import styles from "./styles/tailwind.css?url";
 
@@ -24,7 +25,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <LocaleProvider>
+          <Outlet />
+        </LocaleProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

@@ -5,6 +5,7 @@ import Hero from "~/components/Hero";
 import HomeAbout from "~/components/HomeAbout";
 import ProjectCard from "~/components/ProjectCard";
 import { getSiteSettings, getAllShowreelVideos } from "~/lib/sanity";
+import { useLocale } from "~/contexts/LocaleContext";
 
 export const meta: MetaFunction = () => {
   return [
@@ -44,6 +45,7 @@ export const loader: LoaderFunction = async () => {
 
 export default function Index() {
   const { siteSettings, featuredVideos, error } = useLoaderData<typeof loader>();
+  const { locale } = useLocale();
 
   return (
     <Layout>
@@ -54,10 +56,10 @@ export default function Index() {
       
         <Hero 
           videoUrl={siteSettings?.heroVideo?.asset?.url}
-          description={siteSettings?.heroDescription?.en}
+          description={siteSettings?.heroDescription?.[locale] || siteSettings?.heroDescription?.en}
         />
       
-      <HomeAbout description={siteSettings?.homeAboutDescription?.en} />
+      <HomeAbout description={siteSettings?.homeAboutDescription?.[locale] || siteSettings?.homeAboutDescription?.en} />
       
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row lg:mt-20">
