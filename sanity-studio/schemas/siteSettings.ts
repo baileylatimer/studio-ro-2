@@ -49,6 +49,24 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'aboutHeading',
+      title: 'About Page Heading',
+      type: 'object',
+      fields: [
+        {name: 'en', title: 'English', type: 'text', rows: 4},
+        {name: 'es', title: 'Spanish', type: 'text', rows: 4},
+      ],
+    }),
+    defineField({
+      name: 'aboutBio',
+      title: 'About Page Bio',
+      type: 'object',
+      fields: [
+        {name: 'en', title: 'English', type: 'text', rows: 6},
+        {name: 'es', title: 'Spanish', type: 'text', rows: 6},
+      ],
+    }),
+    defineField({
       name: 'aboutImage',
       title: 'About Image',
       type: 'image',
@@ -58,7 +76,7 @@ export default defineType({
     }),
     defineField({
       name: 'aboutText',
-      title: 'About Text',
+      title: 'About Text (deprecated)',
       type: 'object',
       fields: [
         {

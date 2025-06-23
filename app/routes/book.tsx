@@ -29,10 +29,8 @@ export default function Book() {
       <div className="container mx-auto px-4 py-8">
         {/* Page Title */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl mb-4">
-            UNLEASH YOUR INNER FIRE
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto mt-16">
+    
+          <p className="text-md md:text-xl max-w-2xl mx-auto mt-16 lg:mt-36">
             Join Rocio's Reggaeton X Heels fusion class and discover the power of movement, confidence, and self-expression
           </p>
         </div>
