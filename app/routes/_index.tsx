@@ -55,8 +55,6 @@ export default function Index() {
         <Hero 
           videoUrl={siteSettings?.heroVideo?.asset?.url}
           description={siteSettings?.heroDescription?.en}
-          text1={siteSettings?.heroText1}
-          text2={siteSettings?.heroText2}
         />
       
       <HomeAbout description={siteSettings?.homeAboutDescription?.en} />

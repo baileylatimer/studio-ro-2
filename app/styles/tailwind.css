@@ -11,7 +11,7 @@
 }
 
 @font-face {
-  font-family: "Neue Montreal";
+  font-family: "PP Neue Corp";
   src: url("./fonts/PPNeueCorp-ExtendedUltrabold.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
@@ -64,7 +64,7 @@
   }
   
   p, a {
-    font-family: 'PPSupplyMono-Regular';
+    font-family: var(--font-primary);
     text-transform: uppercase;
     color: var(--color-contrast-higher);
   }
@@ -76,6 +76,10 @@
   h2 {
     font-size: 40px;
     line-height: 40px;
+  }
+  h3 {
+    font-size: 31px;
+    line-height: 30px;
   }
   
   a {

@@ -3,11 +3,9 @@ import { useRef, useEffect } from "react";
 interface HeroProps {
   videoUrl?: string;
   description?: string;
-  text1?: string;
-  text2?: string;
 }
 
-export default function Hero({ videoUrl, description, text1 = "RO", text2 = "CIO" }: HeroProps) {
+export default function Hero({ videoUrl, description }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -36,23 +34,44 @@ export default function Hero({ videoUrl, description, text1 = "RO", text2 = "CIO
       )}
 
 
-<div className="ro absolute top-[90px] left-[40px] lg:top-[90px] lg:left-[40px]">
-          <h1 className="text-xxl text-white">{text1}</h1>
+<div className="absolute top-[90px] left-0 w-full px-[40px]">
+          <h1 className="text-white whitespace-nowrap" style={{ fontSize: 'calc(100vw / 9.5)', fontFamily: '"PP Neue Corp"' }}>
+            STUDIO–RO<span className="text-white" style={{ fontSize: '0.5em', verticalAlign: 'super' }}>©</span>
+          </h1>
         </div>
         
-        <div className="cio absolute bottom-[60px] right-[20px]">
-          <h1 className="text-xxl text-white">{text2}</h1>
-        </div>
+
         
-        {description && (
-          <div className="hero-desc absolute bottom-[40px] left-[40px] lg:left-[40px] max-w-[360px] text-justify">
-            <p className="text-white">{description}</p>
+      {/* Gradient overlay */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 w-full pointer-events-none z-10"
+        style={{
+          background: 'linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0.00) 100%)',
+          height: '320px'
+        }}
+      />
+
+      {/* Description and pill */}
+      {description && (
+        <div className="absolute bottom-0 left-0 right-0 w-full flex flex-col items-center justify-end pb-[40px] z-20">
+          <h3 className="text-white text-center max-w-[600px] px-4 mb-4">{description}</h3>
+          <div 
+            className="text-white text-sm uppercase"
+            style={{
+              display: 'flex',
+              width: '199px',
+              padding: '5px 0px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '10px',
+              borderRadius: '30px',
+              background: 'rgba(255, 255, 255, 0.10)'
+            }}
+          >
+            BY ROCIO COLOMER JORDA
           </div>
-        )}
-
-      <div className="overlay-bottom pointer-events-none absolute bottom-0 left-0 right-0 w-full h-[700px] z-0 flex items-end justify-start">
-
-      </div>
+        </div>
+      )}
     </div>
   );
 }
