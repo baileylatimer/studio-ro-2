@@ -12,12 +12,6 @@ export default function Header() {
         {/* Left: Menu Items */}
         <div className="flex items-center pl-6">
           <Link
-            to="/showreel/all"
-            className="mr-6 whitespace-nowrap text-sm"
-          >
-            SHOWREEL
-          </Link>
-          <Link
             to="/about"
             className="mr-6 whitespace-nowrap text-sm"
           >
@@ -91,12 +85,6 @@ export default function Header() {
         } lg:hidden w-full nav-open mt-4 pt-4 px-d`}
       >
         <div className="text-sm flex flex-col">
-          <Link
-            to="/showreel/all"
-            className="block mt-4"
-          >
-            SHOWREEL
-          </Link>
           <Link
             to="/about"
             className="block mt-4"

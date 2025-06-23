@@ -61,7 +61,7 @@ export default function Index() {
       
       <HomeAbout description={siteSettings?.homeAboutDescription?.[locale] || siteSettings?.homeAboutDescription?.en} />
       
-      <div className="container mx-auto px-4 py-8">
+      {/* <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row lg:mt-20">
           {featuredVideos.map((video: any) => (
             <ProjectCard
@@ -78,7 +78,7 @@ export default function Index() {
             />
           ))}
         </div>
-      </div>
+      </div> */}
     </Layout>
   );
 }
