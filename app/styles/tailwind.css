@@ -99,6 +99,10 @@
   .text-white {
     color: var(--color-bg);
   }
+
+  .text-whitee {
+    color: var(--color-bg) !important;
+  }
   
   .font-base {
     font-size: var(--font-base);

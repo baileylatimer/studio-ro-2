@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "@remix-run/react";
 import LanguageSwitcher from "./LanguageSwitcher";
 import Stripes from "./Stripes";
-import Timezone from "./Timezone";
 
 export default function Header() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -389,13 +388,13 @@ export default function Header() {
         <div className="flex items-center pl-6">
           <Link
             to="/about"
-            className="mr-6 whitespace-nowrap text-sm"
+            className="mr-6 whitespace-nowrap text-sm "
           >
             ABOUT
           </Link>
           <Link
             to="/contact"
-            className="whitespace-nowrap text-sm"
+            className="whitespace-nowrap text-sm "
           >
             CONTACT
           </Link>
@@ -508,16 +507,21 @@ export default function Header() {
 
           {/* Menu Content */}
           <div className="flex-1 flex flex-col justify-center px-8">
+            {/* Studio Ro text */}
+
+            
             <Link
               to="/about"
-              className="text-white text-6xl font-bold mb-8"
+              className="text-6xl font-bold mb-8 text-whitee"
+              style={{ color: '#FFFFFF' }}
               onClick={() => setIsExpanded(false)}
             >
               ABOUT
             </Link>
             <Link
               to="/contact"
-              className="text-white text-6xl font-bold mb-12"
+              className="text-6xl font-bold mb-12 text-whitee"
+              style={{ color: '#FFFFFF' }}
               onClick={() => setIsExpanded(false)}
             >
               CONTACT
