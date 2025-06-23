@@ -1,12 +1,195 @@
-import { useState } from "react";
-import { Link } from "@remix-run/react";
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "@remix-run/react";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !navRef.current) return;
+
+    // Dynamically import GSAP only on client side
+    const setupScrollTrigger = async () => {
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Set initial state based on page
+      if (isHomePage) {
+        // On homepage, start transparent with light text
+        gsap.set(navRef.current, {
+          backgroundColor: "transparent",
+          borderColor: "transparent",
+          color: "#DFDFDF",
+          "--nav-text-color": "#DFDFDF",
+          "--nav-svg-fill": "#DFDFDF"
+        });
+
+        // Apply light colors to all text elements and SVGs (excluding flags)
+        const textElements = navRef.current?.querySelectorAll('a:not([href="/book"]), span, button');
+        const svgElements = navRef.current?.querySelectorAll('.nav-logo path, .nav-logo rect, button > svg rect');
+        const bookButton = navRef.current?.querySelector('a[href="/book"]');
+        const bookButtonSvg = bookButton?.querySelector('svg path');
+        const languageButtons = navRef.current?.querySelectorAll('.flex.justify-center.items-center.gap-2 button');
+        
+        textElements?.forEach(el => {
+          gsap.set(el, { color: "#DFDFDF" });
+        });
+        svgElements?.forEach(el => {
+          gsap.set(el, { fill: "#DFDFDF" });
+        });
+        
+        // Update language switcher ring colors
+        languageButtons?.forEach(button => {
+          if (button.classList.contains('ring-2')) {
+            gsap.set(button, { '--tw-ring-color': '#DFDFDF' });
+          }
+        });
+        
+        // Keep book button background but change text
+        if (bookButton) {
+          gsap.set(bookButton, { 
+            backgroundColor: "#000000",
+            color: "#DFDFDF"
+          });
+        }
+        // Book button arrow should stay light
+        if (bookButtonSvg) {
+          gsap.set(bookButtonSvg, { stroke: "#DFDFDF" });
+        }
+
+        // Create ScrollTrigger for hero section
+        const heroElement = document.querySelector(".hero");
+        if (heroElement) {
+          ScrollTrigger.create({
+            trigger: heroElement,
+            start: "bottom top+=100",
+            end: "bottom top",
+            onEnter: () => {
+              // Transition to white background with dark text
+              gsap.to(navRef.current, {
+                backgroundColor: "var(--color-bg)",
+                borderColor: "var(--color-contrast-higher)",
+                color: "var(--color-contrast-higher)",
+                "--nav-text-color": "var(--color-contrast-higher)",
+                "--nav-svg-fill": "var(--color-contrast-higher)",
+                duration: 0.3,
+                ease: "power2.inOut"
+              });
+              
+              const textElements = navRef.current?.querySelectorAll('a:not([href="/book"]), span, button');
+              const svgElements = navRef.current?.querySelectorAll('.nav-logo path, .nav-logo rect, button > svg rect');
+              const bookButton = navRef.current?.querySelector('a[href="/book"]');
+              const bookButtonSvg = bookButton?.querySelector('svg path');
+              const languageButtons = navRef.current?.querySelectorAll('.flex.justify-center.items-center.gap-2 button');
+              
+              textElements?.forEach(el => {
+                gsap.to(el, { color: "var(--color-contrast-higher)", duration: 0.3 });
+              });
+              svgElements?.forEach(el => {
+                gsap.to(el, { fill: "var(--color-contrast-higher)", duration: 0.3 });
+              });
+              
+              // Update language switcher ring colors
+              languageButtons?.forEach(button => {
+                if (button.classList.contains('ring-2')) {
+                  gsap.to(button, { '--tw-ring-color': '#000000', duration: 0.3 });
+                }
+              });
+              
+              // Book button maintains black background
+              if (bookButton) {
+                gsap.to(bookButton, { 
+                  backgroundColor: "#000000",
+                  color: "#DFDFDF",
+                  duration: 0.3
+                });
+              }
+              // Book button arrow stays light
+              if (bookButtonSvg) {
+                gsap.to(bookButtonSvg, { stroke: "#DFDFDF", duration: 0.3 });
+              }
+            },
+            onLeaveBack: () => {
+              // Transition back to transparent with light text
+              gsap.to(navRef.current, {
+                backgroundColor: "transparent",
+                borderColor: "transparent",
+                color: "#DFDFDF",
+                "--nav-text-color": "#DFDFDF",
+                "--nav-svg-fill": "#DFDFDF",
+                duration: 0.3,
+                ease: "power2.inOut"
+              });
+              
+              const textElements = navRef.current?.querySelectorAll('a:not([href="/book"]), span, button');
+              const svgElements = navRef.current?.querySelectorAll('.nav-logo path, .nav-logo rect, button > svg rect');
+              const bookButton = navRef.current?.querySelector('a[href="/book"]');
+              const bookButtonSvg = bookButton?.querySelector('svg path');
+              const languageButtons = navRef.current?.querySelectorAll('.flex.justify-center.items-center.gap-2 button');
+              
+              textElements?.forEach(el => {
+                gsap.to(el, { color: "#DFDFDF", duration: 0.3 });
+              });
+              svgElements?.forEach(el => {
+                gsap.to(el, { fill: "#DFDFDF", duration: 0.3 });
+              });
+              
+              // Update language switcher ring colors
+              languageButtons?.forEach(button => {
+                if (button.classList.contains('ring-2')) {
+                  gsap.to(button, { '--tw-ring-color': '#DFDFDF', duration: 0.3 });
+                }
+              });
+              
+              // Book button maintains black background
+              if (bookButton) {
+                gsap.to(bookButton, { 
+                  backgroundColor: "#000000",
+                  color: "#DFDFDF",
+                  duration: 0.3
+                });
+              }
+              // Book button arrow stays light
+              if (bookButtonSvg) {
+                gsap.to(bookButtonSvg, { stroke: "#DFDFDF", duration: 0.3 });
+              }
+            }
+          });
+        }
+      } else {
+        // On other pages, always show background with dark text
+        gsap.set(navRef.current, {
+          backgroundColor: "var(--color-bg)",
+          borderColor: "var(--color-contrast-higher)",
+          color: "var(--color-contrast-higher)",
+          "--nav-text-color": "var(--color-contrast-higher)",
+          "--nav-svg-fill": "var(--color-contrast-higher)"
+        });
+      }
+    };
+
+    setupScrollTrigger();
+
+    // Cleanup
+    return () => {
+      // Clean up ScrollTrigger instances
+      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      });
+    };
+  }, [isHomePage, location.pathname]);
 
   return (
-    <nav className="py-3 lg:p-6 mx-d mb-6 bg-background border border-contrast rounded-xl fixed w-[calc(100vw-80px)] z-50 top-4 mx-4">
+    <nav 
+      ref={navRef}
+      className="py-3 lg:p-6 mx-d mb-6 border rounded-xl fixed w-[calc(100vw-80px)] z-50 top-4 mx-4"
+      style={{ transition: 'background-color 0.3s ease, border-color 0.3s ease' }}
+    >
       {/* Desktop Layout */}
       <div className="hidden lg:grid lg:grid-cols-3 items-center">
         {/* Left: Menu Items */}

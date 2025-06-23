@@ -12,8 +12,9 @@ export default function LanguageSwitcher() {
       <button
         onClick={() => changeLocale("en")}
         className={`rounded-full h-7 w-7 flex items-center justify-center ${
-          currentLocale === "en" ? "ring-2 ring-black" : ""
+          currentLocale === "en" ? "ring-2" : ""
         }`}
+        style={currentLocale === "en" ? { boxShadow: `0 0 0 2px var(--tw-ring-color, #000)` } : {}}
       >
         <svg width="24" height="24" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_102_1138)">
@@ -35,8 +36,9 @@ export default function LanguageSwitcher() {
       <button
         onClick={() => changeLocale("es")}
         className={`rounded-full h-7 w-7 flex items-center justify-center ${
-          currentLocale === "es" ? "ring-2 ring-black" : ""
+          currentLocale === "es" ? "ring-2" : ""
         }`}
+        style={currentLocale === "es" ? { boxShadow: `0 0 0 2px var(--tw-ring-color, #000)` } : {}}
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_103_1185)">
