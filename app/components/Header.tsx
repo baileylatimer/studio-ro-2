@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "@remix-run/react";
 import LanguageSwitcher from "./LanguageSwitcher";
+import Stripes from "./Stripes";
+import Timezone from "./Timezone";
 
 export default function Header() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -203,7 +205,7 @@ export default function Header() {
                   
                   if (isMobile) {
                     // For mobile: target position is 20px from left, 40px from top of viewport
-                    const targetX = 20;
+                    const targetX = 30;
                     const targetY = 40;
                     
                     // Since we'll be using fixed positioning, we need to calculate
@@ -378,7 +380,7 @@ export default function Header() {
   return (
     <nav 
       ref={navRef}
-      className="py-3 lg:p-6 mx-d mb-6 border rounded-xl fixed w-[calc(100vw-80px)] z-50 top-4 mx-4"
+      className="py-3 px-2 lg:p-6 mx-d mb-6 border rounded-xl fixed w-[calc(100vw-40px)]   lg:px-0 lg:w-[calc(100vw-80px)] z-50 top-4 mx-4"
       style={{ transition: 'background-color 0.3s ease, border-color 0.3s ease' }}
     >
       {/* Desktop Layout */}
@@ -432,7 +434,7 @@ export default function Header() {
       </div>
 
       {/* Mobile Layout */}
-      <div className="lg:hidden grid grid-cols-2">
+      <div className="lg:hidden grid grid-cols-2 w-full">
         <div className="flex items-center">
           {!isHomePage && (
             <Link to="/" className="nav-title">
@@ -449,43 +451,112 @@ export default function Header() {
         <div className="flex justify-end items-center">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="flex items-center px-3 py-2"
+            className="flex items-center px-3 py-2 relative"
           >
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="9" width="25" height="2" fill="black"/>
-              <rect x="1" y="17" width="25" height="2" fill="black"/>
+            <svg 
+              width="28" 
+              height="28" 
+              viewBox="0 0 28 28" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              className="transition-all duration-300"
+            >
+              <rect 
+                x="1" 
+                y="9" 
+                width="25" 
+                height="2" 
+                fill="black"
+                className={`transition-all duration-300 origin-center ${
+                  isExpanded ? 'rotate-45 translate-y-2' : ''
+                }`}
+              />
+              <rect 
+                x="1" 
+                y="17" 
+                width="25" 
+                height="2" 
+                fill="black"
+                className={`transition-all duration-300 origin-center ${
+                  isExpanded ? '-rotate-45 -translate-y-2' : ''
+                }`}
+              />
             </svg>
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <div
-        className={`${
-          isExpanded ? `block` : `hidden`
-        } lg:hidden w-full nav-open mt-4 pt-4 px-d`}
+        className={`fixed inset-0 z-40 lg:hidden transition-transform duration-300 ease-out ${
+          isExpanded ? 'translate-y-0' : 'translate-y-full'
+        }`}
+        style={{ backgroundColor: '#1c1c1c' }}
       >
-        <div className="text-sm flex flex-col">
-          <Link
-            to="/about"
-            className="block mt-4"
-          >
-            ABOUT
-          </Link>
-          <Link
-            to="/contact"
-            className="block mt-4"
-          >
-            CONTACT
-          </Link>
-          <Link
-            to="/book"
-            className="block mt-4 bg-black text-white px-4 py-2 rounded-full text-center"
-          >
-            BOOK NOW
-          </Link>
-          <div className="mt-4">
-            <LanguageSwitcher />
+        <div className="flex flex-col h-full">
+          {/* Close button */}
+          <div className="flex justify-end p-6 pt-16">
+            <button
+              onClick={() => setIsExpanded(false)}
+              className="text-white p-2"
+            >
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 8L24 24M24 8L8 24" stroke="white" strokeWidth="2"/>
+              </svg>
+            </button>
+          </div>
+
+          {/* Menu Content */}
+          <div className="flex-1 flex flex-col justify-center px-8">
+            <Link
+              to="/about"
+              className="text-white text-6xl font-bold mb-8"
+              onClick={() => setIsExpanded(false)}
+            >
+              ABOUT
+            </Link>
+            <Link
+              to="/contact"
+              className="text-white text-6xl font-bold mb-12"
+              onClick={() => setIsExpanded(false)}
+            >
+              CONTACT
+            </Link>
+            <Link
+              to="/book"
+              className="bg-white text-black px-8 py-4 rounded-full inline-flex items-center gap-3 text-lg font-medium self-start"
+              onClick={() => setIsExpanded(false)}
+            >
+              BOOK NOW
+              <svg width="20" height="20" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1.5H15M15 1.5V15.5M15 1.5L1 15.5" stroke="#000000" strokeWidth="2"/>
+              </svg>
+            </Link>
+            
+            {/* Language Switcher */}
+            <div className="mt-8 mb-24">
+              <LanguageSwitcher />
+            </div>
+          </div>
+
+          {/* Bottom Section with Timezones and Stripes */}
+          <div className="mt-auto">
+            {/* Timezones */}
+            {/* <div className="flex justify-between px-8 pb-8 text-sm" style={{ color: '#DFDFDF' }}>
+              <div className="flex items-center gap-2  " style={{ color: '#DFDFDF' }}>
+                <span className="text-white">LOS ANGELES</span>
+                <Timezone timezone="America/Los_Angeles" showLabel={false} />
+              </div>
+              <div className="flex items-center gap-2 color-bg" style={{ color: '#DFDFDF' }}>
+                <span className="text-white">VALENCIA</span>
+                <Timezone className="text-white" timezone="Europe/Madrid" showLabel={false} />
+              </div>
+            </div> */}
+            
+            {/* Stripes */}
+            <div className="w-full">
+              <Stripes bgColor="#5e5e5e" className="mt-0 pb-0" inverted={true} />
+            </div>
           </div>
         </div>
       </div>

@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 
-export default function Timezone() {
+interface TimezoneProps {
+  timezone?: string;
+  showLabel?: boolean;
+}
+
+export default function Timezone({ timezone = 'America/Los_Angeles', showLabel = true }: TimezoneProps) {
   const [time, setTime] = useState<string>("");
 
   useEffect(() => {
     const updateTime = () => {
       const currentTime = new Date().toLocaleTimeString(['en-GB'], { 
-        timeZone: 'America/Los_Angeles', 
+        timeZone: timezone, 
         hour: '2-digit', 
         minute: '2-digit' 
       });
@@ -17,9 +22,10 @@ export default function Timezone() {
     const interval = setInterval(updateTime, 60000); // Update every minute
 
     return () => clearInterval(interval);
-  }, []);
+  }, [timezone]);
 
-  return <span>Los Angeles {time}</span>;
+  const label = showLabel ? (timezone === 'America/Los_Angeles' ? 'Los Angeles ' : '') : '';
+  return <span>{label}{time}</span>;
 }
 
 export function TimezoneValencia() {
