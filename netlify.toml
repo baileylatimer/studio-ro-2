@@ -14,6 +14,7 @@ included_files = ["build/server/**"]
 from = "/*"
 to = "/.netlify/functions/remix-server"
 status = 200
+force = true
 
 # Set immutable caching for static files, because they have fingerprinted filenames
 
