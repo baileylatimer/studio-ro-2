@@ -4,10 +4,16 @@ publish = "build/client"
 
 [dev]
 command = "npm run dev"
-framework = "vite"
 
 [functions]
+directory = ".netlify/functions-internal"
 node_bundler = "esbuild"
+included_files = ["build/server/**"]
+
+[[redirects]]
+from = "/*"
+to = "/.netlify/functions/remix-server"
+status = 200
 
 # Set immutable caching for static files, because they have fingerprinted filenames
 
